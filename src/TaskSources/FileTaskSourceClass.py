@@ -1,4 +1,5 @@
-from classes.TaskDataclass import Task
+from src.classes.TaskDataclass import Task
+from src.exceptions.FileTaskSourceExceptions import FileNotFoundError
 
 
 class FileTaskSource:
@@ -7,6 +8,8 @@ class FileTaskSource:
 
     def get_tasks(self):
         tasks = []
+        if not f:
+            raise FileNotFoundError(self.filename)
         with open(self.filename, 'r') as f:
             for line in f:
                 parts = line.split()
